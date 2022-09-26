@@ -1,10 +1,14 @@
+package com.company;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        String[] words = {"staff", "metal", "element", "flow", "experiment"};
+        int j = 0;
+        
+        String[] words = {"staff", "metal", "element", "flow", "experiment", "chemistry", "physics", "maths", "computer"};
         Random rand = new Random();
         int upperbound = words.length;
         int randnum = rand.nextInt(upperbound);
@@ -26,8 +30,7 @@ public class Main {
         System.out.println(sb);
         System.out.println(randword);
 
-        StringBuilder builtstring = sb;
-        String hangword = builtstring.toString() ;
+        String hangword = sb.toString();
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your guess > ");
@@ -37,17 +40,22 @@ public class Main {
 
         char[] gameword = randword.toCharArray();
 
+        StringBuilder sb2 = new StringBuilder(String.valueOf(gameword));
+
         for(char c : gameword)
         {
             if (guess == c)
             {
-                hangword.replace('_', guess);
+               int index = gameword.indexOf(c, j);
+               sb2.setCharAt(index, c);
+               hangword = sb2.toString();
+               j += 1;
             }
             else
             {
                 continue;
             }
-            }
+        }
         System.out.println(hangword);
     }
 }
