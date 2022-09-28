@@ -1,3 +1,5 @@
+package com.company;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -48,7 +50,7 @@ public class Main
         return gamearray;
     }
 
-    static ArrayList<Character> GameProcessor(ArrayList<Character> GameArray, Character Guess, Integer WordLength, String GameWord){
+    static ArrayList<Character> GameProcessor(ArrayList<Character> GameArray, Character Guess, Integer WordLength, String GameWord, ArrayList<Integer> AllInstances){
         int count  = 0;
 
         char [] HangWordCharArray = GameWord.toCharArray();
@@ -89,6 +91,19 @@ public class Main
         }
         return bool;
     }
+    static  ArrayList<Integer> FindAll(char guess, String WordChoice){
+        ArrayList<Integer> indexes = new ArrayList<>(); 
+        char wordarray[] = WordChoice.toCharArray();
+        int count = 0;
+       
+        for (char c : wordarray){
+            if(guess == c){
+                indexes.add(count);
+            }
+            count++;
+        }
+        return indexes;
+    }
 
     public static void main(String[] args)
     {
@@ -105,7 +120,8 @@ public class Main
         while(!check){
             System.out.println(gamearray);
             char guess = UserInput();
-            GameProcessor(gamearray, guess, wordlength, wordchoice);
+            ArrayList<Integer> indexes = FindAll(guess, wordchoice);
+            GameProcessor(gamearray, guess, wordlength, wordchoice, indexes);
             check = Checker(gamearray, wordlength);
         }
         System.out.println(gamearray);
