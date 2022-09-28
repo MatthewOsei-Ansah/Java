@@ -88,17 +88,18 @@ public class Main
     }
     static ArrayList<Character> Wrong(char guess, String WordChoice, ArrayList<Character> WrongArray) {
         char wordarray[] = WordChoice.toCharArray();
-        String find = null;
+        int arraylength = wordarray.length;
+        int count = 0;
 
-        for (char c : wordarray) {
+        for(char c: wordarray) {
             if (guess != c) {
-                find = "no";
+                count += 1;
             }
-            }
-
-        if (find.equals("no")) {
+        }
+        if(count == arraylength){
             WrongArray.add(guess);
         }
+
         return WrongArray;
     }
     static ArrayList<Character> Replace(ArrayList<Integer> Indexes, ArrayList<Character> GameArray, Character Guess){
@@ -111,8 +112,10 @@ public class Main
 
     public static void main(String[] args)
     {
-        String wordarray[] = {"metal", "experiment"};
+        String wordarray[] = {"metal", "experiment", "chemistry", "physics", "mathematics", "computer", "science", "waterman", "java",
+        "command", "error", "logic", "data", "class", "operator", "clock", "runtime", "character", "classroom"};
         boolean check = false;
+        int guesses = 0;
 
         int lenarray = wordarray.length;
 
@@ -131,8 +134,10 @@ public class Main
             ArrayList<Character> wrong = Wrong(guess, wordchoice, wrongarray);
             check = Checker(gamearray, wordlength);
             System.out.println("Incorrect Letters: " + wrong);
+            guesses += 1;
+            System.out.println("Guess: " + guesses);
         }
-
+        System.out.println("Total guesses: "+ guesses);
         System.out.println(gamearray);
     }
 }
