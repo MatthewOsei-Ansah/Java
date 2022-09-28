@@ -48,20 +48,24 @@ public class Main
         return gamearray;
     }
 
-    static ArrayList<Character> GameProcessor(ArrayList<Character> GameArray, Character Guess, Integer WordLength){
+    static ArrayList<Character> GameProcessor(ArrayList<Character> GameArray, Character Guess, Integer WordLength, String GameWord){
         int count  = 0;
 
-        for(char c : GameArray){
-            if (GameArray.get(count) == Guess) {
+        char [] HangWordCharArray = GameWord.toCharArray();
+
+        for(char c : HangWordCharArray){
+            if (HangWordCharArray[count] == Guess) {
                 GameArray.set(count, Guess);
+                count += 1;
             } else{
+                count += 1;
                 continue;
             }
-        return GameArray;
+            return GameArray;
         }
         return GameArray;
     }
-    static void Checker(ArrayList<Character> GameArray, int WordLength){
+    static boolean Checker(ArrayList<Character> GameArray, int WordLength){
         int count = 0;
         int empty = 0;
         boolean bool = false;
@@ -75,26 +79,35 @@ public class Main
             else
             {
                 count += 1;
-                continue;
             }
         }
-        if(count > 0){
-            bool = false;
-        }
-        else{
+        if(empty == 0){
             bool = true;
         }
+        else{
+            bool = false;
+        }
+        return bool;
     }
 
     public static void main(String[] args)
     {
         String wordarray[] = {"metal", "experiment"};
+        boolean check = false;
 
         int lenarray = wordarray.length;
 
         String wordchoice = RandWord(wordarray, lenarray);
-        char guess = UserInput();
+
         int wordlength = GetWordLength(wordchoice);
         ArrayList<Character> gamearray = Constructor(wordlength);
+
+        while(!check){
+            System.out.println(gamearray);
+            char guess = UserInput();
+            GameProcessor(gamearray, guess, wordlength, wordchoice);
+            check = Checker(gamearray, wordlength);
+        }
+        System.out.println(gamearray);
     }
 }
