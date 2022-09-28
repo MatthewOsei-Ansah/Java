@@ -1,9 +1,6 @@
-package com.company;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
 
 public class Main
 {
@@ -26,13 +23,16 @@ public class Main
         String wordchoice = array[randnum];
         return wordchoice;
     }
-    static char UserInput(){
+    static char UserInput() {
+        String regex = "[a-z]+";
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your guess > ");
         String firstguess = sc.nextLine();
         firstguess = firstguess.toLowerCase();
-        char secondguess [] = firstguess.toCharArray();
+        char secondguess[] = firstguess.toCharArray();
         char guess = secondguess[0];
+
         return guess;
     }
 
@@ -46,27 +46,9 @@ public class Main
         for(int i = 0; i < wordlength; i += 1){
             gamearray.add('_');
         }
-        // String output = gamearray.toString();
         return gamearray;
     }
 
-    static ArrayList<Character> GameProcessor(ArrayList<Character> GameArray, Character Guess, Integer WordLength, String GameWord, ArrayList<Integer> AllInstances){
-        int count  = 0;
-
-        char [] HangWordCharArray = GameWord.toCharArray();
-
-        for(char c : HangWordCharArray){
-            if (HangWordCharArray[count] == Guess) {
-                GameArray.set(count, Guess);
-                count += 1;
-            } else{
-                count += 1;
-                continue;
-            }
-            return GameArray;
-        }
-        return GameArray;
-    }
     static boolean Checker(ArrayList<Character> GameArray, int WordLength){
         int count = 0;
         int empty = 0;
@@ -92,10 +74,10 @@ public class Main
         return bool;
     }
     static  ArrayList<Integer> FindAll(char guess, String WordChoice){
-        ArrayList<Integer> indexes = new ArrayList<>(); 
+        ArrayList<Integer> indexes = new ArrayList<>();
         char wordarray[] = WordChoice.toCharArray();
         int count = 0;
-       
+
         for (char c : wordarray){
             if(guess == c){
                 indexes.add(count);
@@ -103,6 +85,28 @@ public class Main
             count++;
         }
         return indexes;
+    }
+    static ArrayList<Character> Wrong(char guess, String WordChoice, ArrayList<Character> WrongArray) {
+        char wordarray[] = WordChoice.toCharArray();
+        String find = null;
+
+        for (char c : wordarray) {
+            if (guess != c) {
+                find = "no";
+            }
+            }
+
+        if (find.equals("no")) {
+            WrongArray.add(guess);
+        }
+        return WrongArray;
+    }
+    static ArrayList<Character> Replace(ArrayList<Integer> Indexes, ArrayList<Character> GameArray, Character Guess){
+        int count = 0;
+        for(int i :Indexes){
+            GameArray.set(i ,Guess);
+        }
+        return GameArray;
     }
 
     public static void main(String[] args)
@@ -115,15 +119,20 @@ public class Main
         String wordchoice = RandWord(wordarray, lenarray);
 
         int wordlength = GetWordLength(wordchoice);
+
         ArrayList<Character> gamearray = Constructor(wordlength);
+        ArrayList<Character> wrongarray = new ArrayList<>();
 
         while(!check){
             System.out.println(gamearray);
             char guess = UserInput();
             ArrayList<Integer> indexes = FindAll(guess, wordchoice);
-            GameProcessor(gamearray, guess, wordlength, wordchoice, indexes);
+            Replace(indexes, gamearray, guess);
+            ArrayList<Character> wrong = Wrong(guess, wordchoice, wrongarray);
             check = Checker(gamearray, wordlength);
+            System.out.println("Incorrect Letters: " + wrong);
         }
+
         System.out.println(gamearray);
     }
 }
