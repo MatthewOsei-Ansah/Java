@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class Main
 {
@@ -24,7 +25,7 @@ public class Main
         return wordchoice;
     }
     static char UserInput() {
-        String regex = "[a-z]+";
+        boolean check;
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter your guess > ");
@@ -33,6 +34,16 @@ public class Main
         char secondguess[] = firstguess.toCharArray();
         char guess = secondguess[0];
 
+        check = Pattern.matches("[a-z]+", firstguess);
+
+        while(!check) {
+            System.out.println("Please enter a valid letter in the alphabet > ");
+            firstguess = sc.nextLine();
+            firstguess = firstguess.toLowerCase();
+            secondguess = firstguess.toCharArray();
+            guess = secondguess[0];
+            check = Pattern.matches("[a-z]+", firstguess);
+        }
         return guess;
     }
 
@@ -113,7 +124,7 @@ public class Main
     public static void main(String[] args)
     {
         String wordarray[] = {"metal", "experiment", "chemistry", "physics", "mathematics", "computer", "science", "waterman", "java",
-        "command", "error", "logic", "data", "class", "operator", "clock", "runtime", "character", "classroom"};
+                "command", "error", "logic", "data", "class", "operator", "clock", "runtime", "character", "classroom"};
         boolean check = false;
         int guesses = 0;
 
