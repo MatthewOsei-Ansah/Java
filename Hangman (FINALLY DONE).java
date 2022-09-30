@@ -1,3 +1,5 @@
+package com.company;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,7 +10,7 @@ public class Main
     static ArrayList<Character> ListCreator(String word)
     {
         int count = 0;
-        ArrayList<Character> wordlist = new ArrayList<Character>();
+        ArrayList<Character> wordlist = new ArrayList<>();
         char chararray[] = word.toCharArray();
         for (char c : chararray)
         {
@@ -124,9 +126,15 @@ public class Main
     public static void main(String[] args)
     {
         String wordarray[] = {"metal", "experiment", "chemistry", "physics", "mathematics", "computer", "science", "waterman", "java",
-                "command", "error", "logic", "data", "class", "operator", "clock", "runtime", "character", "classroom"};
+                "command", "error", "logic", "data", "class", "operator", "clock", "runtime", "character", "classroom", "epiphany","vaseline",
+                "mechanics", "screen", "bit", "binary", "fission", "nucleus", "orbital","compiler","interpreter","variable", "string", "file"
+                ,"emphasise","camera", "portrait", "refactor", "system", "constructor", "therapy","ghost","movies","sutton","grammar","destiny"
+                ,"index", "argument", "parameter", "parabola","quadratic","polynomial","calculator","anatomy","justice","syntax","isotope",
+                "search", "heresy","extraction","lunch","acceleration","cartesian","coordinate","juice","specimen","esoteric","exothermic",
+                "endothermic"};
         boolean check = false;
         int guesses = 0;
+        int lengthofwrongarray = 0;
 
         int lenarray = wordarray.length;
 
@@ -143,10 +151,15 @@ public class Main
             ArrayList<Integer> indexes = FindAll(guess, wordchoice);
             Replace(indexes, gamearray, guess);
             ArrayList<Character> wrong = Wrong(guess, wordchoice, wrongarray);
+            lengthofwrongarray = wrong.size();
             check = Checker(gamearray, wordlength);
             System.out.println("Incorrect Letters: " + wrong);
             guesses += 1;
             System.out.println("Guess: " + guesses);
+            if(lengthofwrongarray == 10){
+                System.out.println("You are out of guesses");
+                break;
+            }
         }
         System.out.println("Total guesses: "+ guesses);
         System.out.println(gamearray);
