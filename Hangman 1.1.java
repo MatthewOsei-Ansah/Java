@@ -1,9 +1,9 @@
-package com.company;
+        package com.company;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.regex.*;
+        import java.util.ArrayList;
+        import java.util.Random;
+        import java.util.Scanner;
+        import java.util.regex.*;
 
 public class Main {
     static ArrayList<Character> ListCreator(String word) {
@@ -123,7 +123,6 @@ public class Main {
         String playagain;
         boolean valid;
         char finalans;
-        Character finalans2;
         boolean again;
         Scanner sc5 = new Scanner(System.in);
 
@@ -141,10 +140,8 @@ public class Main {
         }
         char[] playagainarray = playagain.toCharArray();
         finalans = playagainarray[0];
-        finalans2 = (Character) finalans;
-        System.out.println(finalans2);
 
-        if (finalans2.equals("Y"))
+        if (finalans == 'Y')
             again = true;
         else
             again = false;
