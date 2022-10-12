@@ -1,9 +1,9 @@
-        package com.company;
+package com.company;
 
-        import java.util.ArrayList;
-        import java.util.Random;
-        import java.util.Scanner;
-        import java.util.regex.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.regex.*;
 
 public class Main {
     static ArrayList<Character> ListCreator(String word) {
@@ -15,6 +15,22 @@ public class Main {
             count += 1;
         }
         return wordlist;
+    }
+
+    static Integer GuessNumInput(){
+        int UserInput;
+        boolean Check;
+        String test;
+
+        Scanner scidk = new Scanner(System.in);
+        System.out.println("How many chances would you like?");
+        do {
+            UserInput = scidk.nextInt();
+            test = Integer.toString(UserInput);
+            Check = Pattern.matches("[0-999]+", test);
+        } while(!Check);
+
+        return UserInput;
     }
 
     static String RandWord(String[] array, int lenarray) {
@@ -98,13 +114,22 @@ public class Main {
         char wordarray[] = WordChoice.toCharArray();
         int arraylength = wordarray.length;
         int count = 0;
+        boolean contains = false;
 
         for (char c : wordarray) {
             if (guess != c) {
                 count += 1;
             }
         }
-        if (count == arraylength) {
+
+        for(char d: WrongArray){
+            if(d == guess && count == arraylength){
+                contains = true;
+            }
+        }
+
+
+        if (count == arraylength && !contains) {
             WrongArray.add(guess);
         }
 
@@ -176,6 +201,7 @@ public class Main {
 
             while (!check) {
                 System.out.println(gamearray);
+                int numguesses = GuessNumInput();
                 char guess = UserInput();
                 ArrayList<Integer> indexes = FindAll(guess, wordchoice);
                 Replace(indexes, gamearray, guess);
@@ -185,7 +211,7 @@ public class Main {
                 System.out.println("Incorrect Letters: " + wrong);
                 guesses += 1;
                 System.out.println("Guess: " + guesses);
-                if (lengthofwrongarray == 10) {
+                if (lengthofwrongarray == numguesses) {
                     System.out.println("You are out of guesses");
                     break;
                 }
