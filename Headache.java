@@ -3,8 +3,15 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-	Product myProduct = new Product("Beans", 1.00);
-    System.out.println(myProduct);
+        Product product1 = new Product("Beans", 1.00);
+        System.out.println(product1);
+        Product product2 = new Product("Eggs", 1.25);
+        
+        Order myOrder = new Order(1, "18/10/22");
+        myOrder.OrderItem(product1);
+        myOrder.OrderItem(product2);
+        
+        
     }
 }
 
@@ -17,33 +24,34 @@ package com.company;
 import java.util.ArrayList;
 
 public class Order {
-    private String OrderNumber;
+    private int OrderNumber;
     private String DateOrdered;
-    private ArrayList<String> ProductArray = new ArrayList<>();
+    private ArrayList<Product> ProductArray = new ArrayList<>();
     private int NumberOfItemsOrdered = ProductArray.size();
 
     //LocalDateTime myDateObj = LocalDateTime.now();
     //DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("E, dd-MM-yyyy HH:mm:ss");
     //private String DateOrdered = myDateObj.format(myFormatObj);
 
-    public Order(String orderNumber, String dateOrdered){
+    public Order(int orderNumber, String dateOrdered){
         this.OrderNumber = orderNumber;
         this.DateOrdered = dateOrdered;
     }
 
-    public void OrderItem(String Product){
-        this.ProductArray.add(Product);
+    public void OrderItem(Product product){
+        this.ProductArray.add(product);
     }
 
-}
 
+
+}
 
 //Split
 
 package com.company;
 
 public class OrderStatus {
-    private boolean HasShipped;
+    private boolean HasShipped = false;
 
     public OrderStatus(boolean hasShipped){
         this.HasShipped = hasShipped;
@@ -56,7 +64,7 @@ public class OrderStatus {
 
 }
 
-//Split
+// Split 
 
 package com.company;
 
@@ -68,4 +76,13 @@ public class Product {
         this.ProductID = productID;
         this.ProdcutPrice = productPrice;
     }
+
+    public String getProductID(){
+        return ProductID;
+    }
+
+    public double getProdcutPrice(){
+        return ProdcutPrice;
+    }
 }
+
