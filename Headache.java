@@ -1,23 +1,22 @@
-package com.company;
-
 public class Main {
 
     public static void main(String[] args) {
         Product product1 = new Product("Beans", 1.00);
         System.out.println(product1);
         Product product2 = new Product("Eggs", 1.25);
-        
+
         Order myOrder = new Order(1, "18/10/22");
         myOrder.OrderItem(product1);
         myOrder.OrderItem(product2);
-        
-        
+
+        System.out.println(myOrder.getOrderItemID(1));
+        System.out.println(myOrder.getOrderItemPrice(1));
+
+
     }
 }
 
-//Split
-
-package com.company;
+// Split
 
 //import java.time.*;
 //import java.time.format.DateTimeFormatter;
@@ -42,13 +41,20 @@ public class Order {
         this.ProductArray.add(product);
     }
 
+    public String getOrderItemID(int Index){
+        Index -= 1;
+        return ProductArray.get(Index).getProductID();
+    }
+
+    public double getOrderItemPrice(int Index){
+        Index -= 1;
+        return ProductArray.get(Index).getProdcutPrice();
+    }
 
 
 }
 
 //Split
-
-package com.company;
 
 public class OrderStatus {
     private boolean HasShipped = false;
@@ -64,9 +70,8 @@ public class OrderStatus {
 
 }
 
-// Split 
 
-package com.company;
+//Split
 
 public class Product {
     private String ProductID;
@@ -85,4 +90,3 @@ public class Product {
         return ProdcutPrice;
     }
 }
-
