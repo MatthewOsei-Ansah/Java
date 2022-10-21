@@ -1,8 +1,30 @@
+import java.util.Scanner;
+
 public class Daddy {
     public static void main(String[] args) {
-        // Just put any shape in mate
+        int userinput;
+
+        Scanner sc  = new Scanner(System.in);
+        System.out.println("Enter the corrosponding number for the shape you would like to create \n 1)Circle \n 2)Rectangle \n 3)Triangle \n 4)Cylinder \n 5)Sphere \n 6) Cuboid \n 7)Tetrahedron ");
+        userinput = sc.nextInt();
+
+        switch (userinput){
+            case 1:
+                Scanner sc1 = new Scanner(System.in);
+                System.out.println("Enter a radius");
+                try {
+                    Circle circle = new Circle(sc1.nextInt());
+                }
+                catch(IllegalArgumentException){
+                    System.out.println("The Circle failed to be created");;
+                }
+
+                System.out.println("Circle created");
+        }
+
     }
 }
+
 
 // Split
 
