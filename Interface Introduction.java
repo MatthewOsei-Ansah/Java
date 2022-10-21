@@ -1,27 +1,105 @@
 import java.util.Scanner;
 
-public class Daddy {
+import java.util.Scanner;
+import java.util.regex.*;
+
+public class EntryPoint {
+    static boolean Again(){
+        String playagain;
+        boolean valid;
+        char finalans;
+        boolean again;
+        Scanner sc5 = new Scanner(System.in);
+
+        System.out.println("Would you like to create another shape? Y/N: ");
+        playagain = sc5.nextLine();
+        playagain = playagain.toUpperCase();
+        valid = Pattern.matches("[YN]+", playagain);
+
+        while(!valid) {
+            System.out.println("Please enter Y or N");
+            System.out.println("Would you like to create another shape Y/N: ");
+            playagain = sc5.nextLine();
+            playagain = playagain.toUpperCase();
+            valid = Pattern.matches("[YN]+", playagain);
+        }
+        char[] playagainarray = playagain.toCharArray();
+        finalans = playagainarray[0];
+
+        if (finalans == 'Y')
+            again = true;
+        else
+            again = false;
+
+        return again;
+    }
+
     public static void main(String[] args) {
         int userinput;
+        int length;
+        int width;
+        int height;
+        int base;
+        int Height;
+        int radius;
+        boolean again;
 
-        Scanner sc  = new Scanner(System.in);
-        System.out.println("Enter the corrosponding number for the shape you would like to create \n 1)Circle \n 2)Rectangle \n 3)Triangle \n 4)Cylinder \n 5)Sphere \n 6) Cuboid \n 7)Tetrahedron ");
-        userinput = sc.nextInt();
+        do {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Enter the corresponding number for the shape you would like to create \n 1)Circle \n 2)Rectangle \n 3)Triangle \n 4)Cylinder \n 5)Sphere \n 6) Cuboid \n 7)Tetrahedron ");
+            userinput = sc.nextInt();
 
-        switch (userinput){
-            case 1:
-                Scanner sc1 = new Scanner(System.in);
-                System.out.println("Enter a radius");
-                try {
-                    Circle circle = new Circle(sc1.nextInt());
-                }
-                catch(IllegalArgumentException){
-                    System.out.println("The Circle failed to be created");;
-                }
-
-                System.out.println("Circle created");
-        }
-
+            switch (userinput) {
+                case 1:
+                    System.out.println("Enter a radius");
+                    Circle circle = new Circle(sc.nextInt());
+                    break;
+                case 2:
+                    System.out.println("Enter length");
+                    length = sc.nextInt();
+                    System.out.println("Enter Width");
+                    width = sc.nextInt();
+                    Rectangle rectangle = new Rectangle(length, width);
+                    break;
+                case 3:
+                    System.out.println("Enter base");
+                    base = sc.nextInt();
+                    System.out.println("Enter height");
+                    height = sc.nextInt();
+                    break;
+                case 4:
+                    System.out.println("Enter radius");
+                    radius = sc.nextInt();
+                    System.out.println("Enter height");
+                    Height = sc.nextInt();
+                    Cylinder cylinder = new Cylinder(Height, radius);
+                    break;
+                case 5:
+                    System.out.println("Enter radius");
+                    radius = sc.nextInt();
+                    Sphere sphere = new Sphere(radius);
+                    break;
+                case 6:
+                    System.out.println("Enter length");
+                    length = sc.nextInt();
+                    System.out.println("Enter width");
+                    width = sc.nextInt();
+                    System.out.println("Enter height");
+                    Height = sc.nextInt();
+                    Cuboid cuboid = new Cuboid(length, width, Height);
+                    break;
+                case 7:
+                    System.out.println("Enter base");
+                    base = sc.nextInt();
+                    System.out.println("Enter height");
+                    Height = sc.nextInt();
+                    Tetrahedron tetrahedron = new Tetrahedron(base, Height);
+                    tetrahedron.Area();
+                    tetrahedron.Volume();
+                    break;
+            }
+            again = Again();
+        }while (again);
     }
 }
 
