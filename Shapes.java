@@ -31,7 +31,7 @@ public class EntryPoint {
 
     static void OutputAll(ArrayList<I2DShape> Shapes){
         for(I2DShape shape : Shapes) {
-            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
             if (shape instanceof Circle) {
                 if (shape instanceof Sphere) {
                     System.out.println("Radius of "+ shape + ": " + ((Sphere) shape).getRadius());
@@ -207,8 +207,6 @@ public class EntryPoint {
                         System.out.println("Enter height");
                         Height = keyboard1.nextInt();
                         Tetrahedron tetrahedron = new Tetrahedron(base, Height);
-                        tetrahedron.Area();
-                        tetrahedron.Volume();
                         Shapes.add(tetrahedron);
                     }catch (Exception e){
                         System.out.println("An error has occurred");
@@ -228,12 +226,13 @@ public class EntryPoint {
         switch (userinput){
             case 1:
                 for (I2DShape shape : Shapes){
-                    Areas.add(Shapes.get(index).Area());
-                    index += 1;
+                    if(!(shape instanceof I3DShape))
+                        Areas.add(Shapes.get(index).Area());
+                        index += 1;
                 }
-                System.out.println("Area(s) of the shape(s) in the order they were created: " + Areas);
+                System.out.println("Area(s) of the 2D shape(s) in the order they were created: " + Areas);
                 Collections.sort(Areas);
-                System.out.println("Area(s) of the shapes in ascending order of magnitude: " + Areas);
+                System.out.println("Area(s) of the 2D shapes in ascending order of magnitude: " + Areas);
                 break;
             case 2:
                 for(I2DShape shape : Shapes){
@@ -242,15 +241,19 @@ public class EntryPoint {
                         index += 1;
                     }
                 }
-                System.out.println("Surface area(s) of the shape(s) in the order they were created: " + Areas);
+                System.out.println("Surface area(s) of the 3D shape(s) in the order they were created: " + Areas);
                 Collections.sort(Areas);
-                System.out.println("Surface area(s) of the shapes in ascending order of magnitude: " + Areas);
+                System.out.println("Surface area(s) of the 3D shapes in ascending order of magnitude: " + Areas);
                 break;
             case 3:
                 OutputAll(Shapes);
             }
     }
 }
+
+
+
+
 
 // Split
 
