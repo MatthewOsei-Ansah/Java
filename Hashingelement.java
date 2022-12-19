@@ -17,13 +17,16 @@ public class Element {
         return this.Key;
     }
 
-    public Integer AddressGenerator(int maxsize){
+    public void AddressGenerator(int maxsize){
         Address = this.Key % maxsize;
-        return Address;
     }
 
     public Integer getAddress(){
         return this.Address;
+    }
+
+    public void setAddress(int skip,int maxsize){
+        this.Address = (skip + this.Address) % maxsize ;
     }
 
     public void Remove(){
