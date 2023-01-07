@@ -1,5 +1,3 @@
-package hashing;
-
 public class Connector {
     private Integer Weight;
     private String Node;
