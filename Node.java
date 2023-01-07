@@ -1,5 +1,3 @@
-package hashing;
-
 import java.util.ArrayList;
 
 public class Node {
@@ -8,9 +6,14 @@ public class Node {
     Integer Address;
     ArrayList<Connector> Connections = new ArrayList<>();
 
-    public Node(String node, Integer key){
+    public Node(String node){
         this.Node = node;
-        this.Key =  key;
+        int total = 0;
+        char[] CharArray = this.Node.toCharArray();
+        for(char character: CharArray){
+            total += character;
+        }
+        this.Key = total;
     }
 
     public void addConnection(String node, Integer weight){
@@ -18,9 +21,13 @@ public class Node {
         Connections.add(newConnection);
     }
 
+    public ArrayList<Connector> returnConnections(){
+        return Connections;
+    }
+
     public void getConnections(){
-        for(Connector node: Connections){
-            System.out.println(node.getNode() + ": " + node.getWeight());
+        for(Connector connector: Connections){
+            System.out.println(connector.getNode() + " : " + connector.getWeight());
         }
     }
 
