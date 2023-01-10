@@ -1,18 +1,18 @@
-package com.company;
-import java.math.*;
+package hashing;
 
-import javax.swing.*;
+import java.util.Arrays;
 
-public class Hashing<V, K> implements IHash {
+public class Hashing<V, K>{
     private final int MAX_SIZE = 11;
     private Element[] Array = {null,null,null,null,null,null,null,null,null,null,null};
     private int length = 0;
 
-    public String[] asArray()
+    public String Display()
     {
         int i = 0;
+        String ReturnValue;
         String[] StringArray = {null,null,null,null,null,null,null,null,null,null,null};
-        for(Element value: Array){
+        for(Element<V, K> value: Array){
             if(value == null){
                 StringArray[i] = null;
                 i++;
@@ -21,10 +21,12 @@ public class Hashing<V, K> implements IHash {
                 i++;
             }
         }
-        return StringArray;
+
+        ReturnValue = Arrays.toString(StringArray);
+        return ReturnValue;
     }
 
-    @Override
+
     public void add(V Value, K Key) {
         boolean Placed = false;
         int i = 1;
@@ -60,18 +62,18 @@ public class Hashing<V, K> implements IHash {
         }
     }
 
-    @Override
+
     public V item(K Key) {
         int i = 0;
         boolean Found = false;
         Element<V, K> foundvalue = null;
-        for(Element value : Array){
+        for(Element<V, K> value : Array){
             if(value == null){
                 continue;
             } else if (value.getKey() == Key) {
                 Found = true;
                 foundvalue = value;
-                return value.getValue();
+                return (V) value.getValue();
             }
         }
         if(!Found) {
@@ -80,17 +82,17 @@ public class Hashing<V, K> implements IHash {
         return foundvalue.getValue();
     }
 
-    @Override
+
     public void delete(K Key) {
         Integer Address;
         boolean found = false;
         if (!isEmpty()){
-            for (Element value : Array) {
+            for (Element<V, K> value : Array) {
                 if (value == null) {
                     continue;
                 } else if (Math.abs(value.getKey().hashCode()) == Math.abs(Key.hashCode())) {
                     found = true;
-                    Address = Math.abs((value.getKey().hashCode() % MAX_SIZE);
+                    Address = Math.abs((value.getKey().hashCode() % MAX_SIZE));
                     Array[Address] = null;
                     length--;
                 }
@@ -103,10 +105,10 @@ public class Hashing<V, K> implements IHash {
         }
     }
 
-    @Override
+
     public boolean contains(K Key) {
         boolean found = false;
-        for(Element<V> value : Array){
+        for(Element<V, K> value : Array){
             if(value == null){
                 continue;
             } else if (Math.abs(value.getKey().hashCode()) == Math.abs(Key.hashCode())) {
@@ -117,10 +119,10 @@ public class Hashing<V, K> implements IHash {
         return found;
     }
 
-    @Override
+
     public int length() {
         int i = 0;
-        for(Element value : Array){
+        for(Element<V, K> value : Array){
             if(value == null){
                 continue;
             }else{
@@ -130,7 +132,7 @@ public class Hashing<V, K> implements IHash {
         return i;
     }
 
-    @Override
+
     public boolean isEmpty() {
         return (length == 0);
     }
