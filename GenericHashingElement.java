@@ -1,4 +1,4 @@
-package com.company;
+package hashing;
 
 public class Element<T, K> {
     K Key;
