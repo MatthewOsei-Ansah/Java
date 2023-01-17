@@ -22,22 +22,15 @@ public class Node<T> implements Comparable<Node>{
         return value;
     }
 
-    public void addPrevious(Node<T> previous){
-        this.Previous = previous;
-    }
-
-    public Node<T> getPrevious()
-    {
-        return this.Previous;
-    }
 
     public Node<T> getLeft()
     {
         return this.Left;
     }
 
-    public void setLeft(Node<T> left)
+    public void setLeft(Node<T> node, Node<T> left)
     {
+        left.setPrevious(node);
         this.Left = left;
     }
 
@@ -45,17 +38,30 @@ public class Node<T> implements Comparable<Node>{
         return Right;
     }
 
-    public void setRight(Node<T> right) {
+    public void setPrevious(Node<T> previous){
+        this.Previous = previous;
+    }
+
+    public Node<T> getPrevious() {
+        return Previous;
+    }
+
+    public void setRight(Node<T> node , Node<T> right) {
+        right.setPrevious(node);
         this.Right = right;
     }
 
     @Override
-    public int compareTo(Node node) {
+    public int compareTo(Node node ) {
         if(node.getValue() instanceof String){
-            return ((String)this.getValue()).compareTo((String)node.getValue());
-        }
-        else{
+            return ((String)node.getValue()).compareTo((String)this.getValue());
+        } else if (node.getValue() instanceof  Character) {
+            return ((Character) node.getValue()).compareTo((Character)this.getValue());
+        } else if (node.getValue() instanceof Integer) {
+            return ((Integer) node.getValue()).compareTo((Integer)this.getValue());
+        } else{
             throw new UnsupportedOperationException("Data type not supported");
         }
+        }
     }
-}
+
