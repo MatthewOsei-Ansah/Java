@@ -8,23 +8,19 @@ public class Vector implements IVector
         this.Y = y;
     }
 
-
-    public IVector add(IVector a, IVector b){
+    public Vector add(IVector a, IVector b){
         return new Vector(a.getx() + b.getx(),a.gety() + b.gety());
     }
 
-
-    public IVector multiply(double scalar, IVector a){
+    public Vector multiply(double scalar, IVector a){
         return new Vector(scalar * a.getx(),scalar * a.gety());
     }
-
 
     public int dotProduct(IVector a, IVector b){
         return (int) ((a.getx() * b.getx()) + (a.gety() * b.gety()));
     }
-
-
-    public IVector convexCombination(double scalara, IVector a, double scalarb, IVector b){
+    
+    public Vector convexCombination(double scalara, IVector a, double scalarb, IVector b){
         return new Vector((a.getx() * scalara) + (b.getx() * scalarb),(a.gety() * scalara) + (b.gety() * scalarb));
     }
 
