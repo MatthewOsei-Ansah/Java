@@ -3,14 +3,8 @@ import java.util.ArrayList;
 
 public class MergeSort {
   public static void main(String[] args) {
-    List<Integer> list = new ArrayList<>();
-    list.add(38);
-    list.add(27);
-    list.add(43);
-    list.add(3);
-    list.add(9);
-    list.add(82);
-    list.add(10);
+    Integer[] Values = {1,2,3,4,5,6,7,8,9,10}
+    List<Integer> list = Arrays.asList(Values);
     System.out.println("Before sorting: " + list);
     list = mergeSort(list);
     System.out.println("After sorting: " + list);
