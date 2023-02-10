@@ -1,56 +1,48 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MergeSort {
-  public static void main(String[] args) {
-    List<Integer> list = new ArrayList<>();
-    list.add(38);
-    list.add(27);
-    list.add(43);
-    list.add(3);
-    list.add(9);
-    list.add(82);
-    list.add(10);
-    System.out.println("Before sorting: " + list);
-    list = mergeSort(list);
-    System.out.println("After sorting: " + list);
-  }
-
-  public static List<Integer> mergeSort(List<Integer> list) {
-    if (list.size() <= 1) {
-      return list;
+    public static void main(String[] args) {
+        Integer[] intArray = {5,7,2,78,4,8,89,32,9,45,67,66,72,100,99,3};
+        Integer[] SortedArray;
+        System.out.println("Before sorting: " + Arrays.toString(intArray));
+        SortedArray = mergeSort(intArray, intArray);
+        System.out.println("After sorting: " + Arrays.toString(SortedArray));
     }
 
-    int mid = list.size() / 2;
-    List<Integer> left = new ArrayList<>(list.subList(0, mid));
-    List<Integer> right = new ArrayList<>(list.subList(mid, list.size()));
+    public static Integer[] mergeSort(Integer[] Array, Integer[]Copy) {
+        if (Array.length <= 1) {
+            return Array;
+        }
 
-    left = mergeSort(left);
-    right = mergeSort(right);
+        int mid = Array.length / 2;
+        Integer[] LeftOfSlicedArray = Arrays.copyOfRange(Array,0,mid);
+        Integer[] RightOfSlicedArray = Arrays.copyOfRange(Array,mid,Array.length - 1);
 
-    return merge(left, right);
-  }
+        Integer[] left = mergeSort(LeftOfSlicedArray, Copy);
+        Integer[] right = mergeSort(RightOfSlicedArray, Copy);
 
-  public static List<Integer> merge(List<Integer> left, List<Integer> right) {
-    List<Integer> result = new ArrayList<>();
-    int i = 0, j = 0;
-    while (i < left.size() && j < right.size()) {
-      if (left.get(i) <= right.get(j)) {
-        result.add(left.get(i));
-        i++;
-      } else {
-        result.add(right.get(j));
-        j++;
-      }
+        return merge(left, right, Copy);
     }
-    while (i < left.size()) {
-      result.add(left.get(i));
-      i++;
+
+    public static Integer[] merge(Integer[] left, Integer[] right, Integer[] SortedArray) {
+        int i = 0, j = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
+                SortedArray[i] = left[i];
+                i++;
+            } else {
+                SortedArray[i] = right[j];
+                j++;
+            }
+        }
+        while (i < left.length) {
+            SortedArray[i] = left[i];
+            i++;
+        }
+        while (j < right.length) {
+            SortedArray[i] = right[j];
+            j++;
+        }
+        return SortedArray;
     }
-    while (j < right.size()) {
-      result.add(right.get(j));
-      j++;
-    }
-    return result;
-  }
 }
